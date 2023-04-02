@@ -1,0 +1,32 @@
+
+
+# =============================================================
+# ====  Assignment: Caching the Inverse of a Matrix  ==========
+# =============================================================
+
+makeMatrix <- function(x = numeric()) {
+  inv <- NULL
+  set <- function(y) {
+    x <<- y
+    inv <<- NULL
+  }
+  get <- function() x 
+  setinvmat <- function(inverse) inv <<- inverse
+  getinvmat <- function() inv
+  list(set = set, get = get,
+       setinvmat = setinvmat,
+       getinvmat = getinvmat)
+}
+
+
+cacheinv <- function(x, ...) {
+  inv <- x$getinvmat()
+  if(!is.null(inv)) {
+    message("getting cached data")
+    return(inv)
+  }
+  data <- x$get()
+  inv <- solve(data, ...)
+  x$setinvmat(inv)
+  inv
+}
